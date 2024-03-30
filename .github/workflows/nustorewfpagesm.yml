@@ -17,7 +17,7 @@ on:
 
 defaults:
   run:
-    working-directory: './marketing'
+    working-directory: '/home/runner/work/NuStore-Pages/NuStore-Pages/marketing'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
