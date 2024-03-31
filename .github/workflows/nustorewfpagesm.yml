@@ -27,7 +27,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: ACTIONS_ALLOW_UNSECURE_COMMANDS
         run: echo 'ACTIONS_ALLOW_UNSECURE_COMMANDS=true' >> $GITHUB_ENV
-        working-directory: marketing
+        working-directory: home/runner/work/NuStore-Pages/marketing
 
       - uses: actions/checkout@v2
       - run: npm install
