@@ -31,7 +31,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: npm install
       - run: npm run build
-        working-directory: marketing
+        working-directory: ./../NuStore-Pages/marketing
         env:
           PRODUCTION_DOMAIN: ${{ secrets.PRODUCTION_DOMAIN }}
 
