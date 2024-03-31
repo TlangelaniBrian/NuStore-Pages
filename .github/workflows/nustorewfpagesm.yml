@@ -17,32 +17,33 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    defaults:
-      run:
-        working-directory: marketing
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: ACTIONS_ALLOW_UNSECURE_COMMANDS
         run: echo 'ACTIONS_ALLOW_UNSECURE_COMMANDS=true' >> $GITHUB_ENV
-
-      - uses: actions/checkout@v2
+        working-directory: marketing
       - run: npm install
+        working-directory: marketing
       - run: npm run build
+        working-directory: marketing
         env:
           PRODUCTION_DOMAIN: ${{ secrets.PRODUCTION_DOMAIN }}
 
       - name: Deploy to AWS
         uses: chrislennon/action-aws-cli@v1.1
       - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/marketing/lastest
+        working-directory: marketing
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/marketing/latest/remoteEntry.js"
+        working-directory: marketing
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
